@@ -1,0 +1,42 @@
+  <!-- Header-->
+  <header class="bg-dark py-5 mt-5 ">
+    <div class="container  px-4 px-lg-5 my-5 mt-5">
+        <div class="text-center text-white">
+          
+            <h1 class="display-4 fw-bolder animate__animated animate__backInLeft ">Shop in style</h1>
+            <p class="lead fw-normal text-white-50 mb-0"></p>
+        </div>
+    </div>
+</header>
+<!-- Section-->
+<section class="py-5">
+    <div class="container px-4 px-lg-5 mt-5">
+        <div class="row gx-4 gx-lg-5 row-cols-2 row-cols-md-3 row-cols-xl-4 justify-content-center">
+            <div class="col mb-5" *ngFor="let product of products | filter :searchItem:'title'">
+                <div class="card h-100 p-3">
+                    <!-- Product image-->
+                    <img height="200px" class="card-img-top "  [src]="product.image" [alt]="product.title"  /> 
+                    <!-- Product details-->
+                    <div class="card-body p-4">
+                        <div class="text-center">
+                            <!-- Product name-->
+                            <h6 class="fw-bolder">{{product.title.slice(0,17)}}...</h6>
+                            <!-- Product price-->
+                            ${{product.price}}
+                        </div>
+                    </div>
+                    <!-- Product actions-->
+                    <div style="float: right;" class="card-footer text-center border-top-0 bg-transparent">
+                        <a class="btn btn-outline-dark mt-auto" routerLink="view-products/{{product.id}}">View Products</a>
+                      
+
+                        
+                        
+
+                    </div>
+                </div>
+            </div>
+           
+        </div>
+    </div>
+</section>

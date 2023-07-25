@@ -1,0 +1,151 @@
+<!-- empty cart -->
+<div style="margin-bottom: 200px;" *ngIf="cartItems.length==0" class="container text-center mt-4">
+    <div class="row">
+        <div style="margin-top: 150px;" class="col ">
+            <img  src="https://sarivillafashion.com/img/images/listing-5/empty-cart.gif" alt="no-image">
+            <h3 class="mt-3">Your Cart is empty!</h3>
+            <button class="btn btn-outline-dark" routerLink="">Shop now</button>
+
+        </div>
+    </div>
+</div>
+
+
+<!-- cart section -->
+<div  style="margin-top: 180px ;" *ngIf="cartItems.length!=0" class="container ">
+    <div style="margin-bottom: 220px;" class="row">
+        <div class="col-lg-8 border rounded  mb-5">
+            <!-- table for display items -->
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th>No</th>
+                        <th>Image</th>
+                        <th>Quantity</th>
+                        <th>Price</th>
+                        <th>Action</th>
+
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let product of cartItems; let i=index"  >
+                        <th>{{i+1}}</th>
+                        <th><img height="50px" width="50px" [src]="product.image" alt=""></th>
+                        <th>
+                            <input type="num" class="form-control" value="1" style="max-width: 3rem;">
+                        </th>
+                        <th>{{product.price}}$</th>
+                        <th>
+                            
+                                <button (click)="removeItem(product)" class="btn btn-outline-dark" ><i class="fa-solid fa-trash"></i></button>
+                            
+                        </th>
+
+                    </tr>
+                </tbody>
+            </table>
+            <div class="mb-3" style="float: right; ">
+                <button (click)="emptyCart()" class="btn btn-danger ms-4">Empty Cart</button>
+                <a routerLink="" class="btn btn-outline-dark ms-4"> Shop More</a>
+            </div>
+
+        </div>
+        <div class="col-lg-1"></div>
+
+        <div class="col-lg-3  p-3 mb-4">
+            <h3>Total Cost : <span class="text-dark">{{grandTotal}}$</span></h3>
+            <p>Discount: <span>{{discount}}</span></p>
+            <h4 >
+                <p> Grand Total: <span class="text-success"> {{discountTotal}}$</span></p>
+            </h4>
+            <hr>
+
+            <div class="mt-5">
+                <a   data-bs-toggle="modal" data-bs-target="#staticBackdrop" class=" btn btn-link" >Offers</a>
+                <button style="float: right;" data-bs-toggle="modal" data-bs-target="#checkoutModal" class="btn btn-success" >Checkout</button>
+
+            </div>
+
+            
+        </div>
+    </div>
+</div>
+
+<!-- offer model design -->
+  <!-- Modal -->
+  <div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"  aria-labelledby="staticBackdropLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h1 class="modal-title fs-5" id="staticBackdropLabel">Offers</h1>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body  p-3" >
+            
+         <div *ngIf="grandTotal>0 && grandTotal<20" class="d-flex mt-3"> 
+            <h4>Offer upto 30$</h4>
+            <img   (click)="discount3Percent()" data-bs-dismiss="modal" class="ms-auto btn btn-link "  width="200px" src="https://www.pngall.com/wp-content/uploads/2018/04/Coupon-PNG-File.png" alt="offer 30"></div>
+
+            <div *ngIf="grandTotal>=20 && grandTotal<=100" class="d-flex mt-3 ">
+
+                <h4>Special Offer</h4>
+                <img   (click)="discount50Percent()" data-bs-dismiss="modal" class="ms-auto btn btn-link" width="200px" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTxIQQsQohA3mOIsj2AmKSwaIgiIENMVeGI8Q&usqp=CAU" alt="offer 50">
+            </div>
+            
+            <div *ngIf="grandTotal>100" class="d-flex mt-3"> 
+                <h4>Special Offer</h4>
+                <img  (click)="discount10Percent()"  data-bs-dismiss="modal" class="ms-auto btn btn-link" style="padding-left: 10px;" width="200px" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSN9fBW0m9QmQNNpFOhxE17KWg9XZwi5CJaxV82DwOVQcIWiDmsI3Cb7PdtrKaj7Ym8PLo&usqp=CAU" alt="offer 30">
+            </div>    
+        </div>
+        
+       
+      </div>
+    </div>
+</div>
+ <!-- offer model design -->
+
+
+ <!-- offer cheakout model design -->
+<!-- Modal -->
+<div class="modal fade" id="checkoutModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h1 class="modal-title fs-5" id="staticBackdropLabel">Payment Form</h1>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <form class="border p-3">
+            <div class="mb-2">
+                <input placeholder="Customer Name " type="text" class="form-control">
+            </div>
+            <div class="mb-2">
+                <input placeholder="Customer Address " type="text" class="form-control">
+            </div>
+            <div class="mb-2">
+                <input placeholder="Customer Number " type="text" class="form-control">
+            </div>
+            
+        </form>
+        <hr>
+        <form class="border p-3">
+            <div class="mb-2">
+                <input placeholder="Card Holder Name " type="text" class="form-control">
+            </div>
+            <div class="mb-2">
+                <input placeholder="Card Number " type="text" class="form-control">
+            </div>
+        </form>
+      </div>
+      <div class="text-success text-center">
+        <span>{{checkoutMsg}}</span>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+        <button (click)="cheakout()" type="button" class="btn btn-success">Cheackout</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+ <!-- offer cheakout model design -->

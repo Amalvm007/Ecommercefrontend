@@ -1,0 +1,11 @@
+#search{
+    width: 500px;
+    margin-right: 100px;
+}
+.navbar{
+    background-color:#E7EFE6;
+   
+}
+.dropdown:hover .dropdown-menu{
+    display: block;
+}
